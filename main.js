@@ -2,16 +2,9 @@ class List extends React.Component{
   constructor(props) {
     super(props);
     this.state = { items: [], complete: 0, nextID: 0 };
-    this.items = this.items.bind(this);
     this.updateItem = this.updateItem.bind(this);
     this.addItem = this.addItem.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
-  }
-
-  items() {
-    return this.state.items.map( item => {
-      return(<Item key={item.id} {...item} update={this.updateItem} deleteItem={this.deleteItem} />)
-    })
   }
 
   deleteItem(id) {
@@ -51,6 +44,18 @@ class List extends React.Component{
   }
 
   render(){
+
+    let items =  this.state.items.map( item => {
+      return(
+        <Item
+          key={item.id}
+          {...item}
+          update={this.updateItem}
+          deleteItem={this.deleteItem}
+        />
+      )
+    })
+
     return(
       <div className='center container'>
         <h1> To Do </h1>
@@ -60,7 +65,7 @@ class List extends React.Component{
         </form>
         <hr/>
         <div className='row'>
-          {this.items()}
+          {items}
         </div>
       </div>
      );
